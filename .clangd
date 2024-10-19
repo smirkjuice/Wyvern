@@ -1,0 +1,13 @@
+If:
+  PathMatch: [.*\.cpp, .*\.hpp, .*\.ixx, .*\.tcc, .*\.cc, .*\.cxx, .*\.hxx .*\.cppm]
+
+InlayHints:
+  Enabled: No
+Diagnostics:
+  UnusedIncludes: None
+  ClangTidy:
+    Add: [bugprone-*, cert-*, modernize-*, performance-*, cppcoreguidelines-*, clang-analyzer-*, misc-*, readability-*, portability-*]
+    Remove: 
+      [modernize-use-nodiscard, modernize-use-trailing-return-type, bugprone-easily-swappable-parameters, cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers]
+CompileFlags:
+  Add: [-std=c++23]
