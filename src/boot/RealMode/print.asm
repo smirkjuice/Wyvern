@@ -16,6 +16,8 @@ print_BIOS:
         mov al, byte[bx]
         int 0x10
 
+        ; Increments the pointer so we get to the next character.
+        ; Also restarts the loop so we can actually print the next character.
         inc bx
         jmp print_BIOS_loop
 

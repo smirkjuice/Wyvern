@@ -42,9 +42,43 @@ bootsector_halt:
 jmp $
 
 ; Feels weird including things midway through a file lol
-%include "print.asm"
-%include "elevate.asm"
+%include "RealMode/print.asm"
+%include "RealMode/elevate.asm"
 
 ; Data storage
 hello_kernel: db "\nHello from the BIOS!\n", 0
 boot_drive: db 0x00
+
+; Pads the boot sector for the magic number
+times 510 - ($ - $$) db 0x00
+dw 0xAA55 ; The magic number
+
+
+
+;============================;
+; Start of the second sector ;
+; Contains only 32-bit code  ;
+
+bootsector_extended:
+    begin_protected:
+        [bits 32]
+
+        ; Clears the VGA memory output
+        call clear_prot
+
+        ; Detects long mode. Will return if there's no error
+        call detect_long_mode_prot
+
+        ; Tests VGA-style print function
+        mov esi, protected_alert
+        call print_protected
+
+        ; Initialises the page table
+        call init_page_table_prot
+        
+        call elevate_protected
+
+        jmp $ ; Another infinite loop
+
+        ; Includes
+        %include
