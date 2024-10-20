@@ -41,4 +41,10 @@ call elevate_BIOS
 bootsector_halt:
 jmp $
 
-%include
+; Feels weird including things midway through a file lol
+%include "print.asm"
+%include "elevate.asm"
+
+; Data storage
+hello_kernel: db "\nHello from the BIOS!\n", 0
+boot_drive: db 0x00

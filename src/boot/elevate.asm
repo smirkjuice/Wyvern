@@ -23,3 +23,19 @@ elevate_BIOS:
     [bits 32]
     init_pm:
     ; We're in 32-bit mode now
+
+    ; Tells all segment registers to point to our flatmode data segment
+    mov ax, data_seg
+    mov ds, ax
+    mov ss, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+
+    ; Resets stack pointers since they got messed up in elevation
+    mov ebp, 0x90000
+    mov esp, ebp
+
+    ; Jump to the second sector
+    ; The code is in boot.asm
+    jmp begin_protected

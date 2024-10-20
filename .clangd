@@ -10,4 +10,4 @@ Diagnostics:
     Remove: 
       [modernize-use-nodiscard, modernize-use-trailing-return-type, bugprone-easily-swappable-parameters, cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers]
 CompileFlags:
-  Add: [-std=c++23]
+  Add: [-std=c++23, -ffreestanding, -Wall, -nostdlib, -fno-rtti, -fno-exceptions]
